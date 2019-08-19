@@ -65,6 +65,7 @@ public class BoxMainWindow extends JFrame {
 
         // Создание таблицы на основании модели данных
         tableClient = new JTable(array, columnsHeader);
+        tableClient.setAutoCreateRowSorter(true);
         // Получаем стандартную модель
         columnModel = tableClient.getColumnModel();
 
@@ -123,6 +124,7 @@ public class BoxMainWindow extends JFrame {
 //        add(scrollServer, BorderLayout.EAST);
 //        scrollServer.setPreferredSize(new Dimension(390, 720));
         tableServer = new JTable(array, columnsHeader);
+        tableServer.setAutoCreateRowSorter(true);
         columnModel = tableServer.getColumnModel();
 /*
         // Определение минимального и максимального размеров столбцов
