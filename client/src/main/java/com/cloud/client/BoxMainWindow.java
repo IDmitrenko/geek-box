@@ -1,26 +1,40 @@
 package com.cloud.client;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class BoxMainWindow extends JFrame {
 
-    private final JList<FileList> fileListClient;
-    private final DefaultListModel<FileList> fileListModelClient;
-    private final FileListCellRender fileListCellRenderClient;
-    private final JScrollPane scrollClient;
+//    private final JList<FileList> fileListClient;
+//    private final DefaultListModel<FileList> fileListModelClient;
+//    private final FileListCellRender fileListCellRenderClient;
+//    private final JScrollPane scrollClient;
+    // Данные для таблиц
+    private Object[][] array = new String[][] {{"GuiHelper.java", "2464 bytes"},
+                                               {"SimpleTableTest", "3486 bytes"}};
+    // Заголовки столбцов
+    private Object[] columnsHeader = new String[] {"Имя файла", "Размер"};
+    private final JTable tableClient;
+    private final JTable tableServer;
+    // Модель данных таблицы
+//    private DefaultTableModel tableModel;
+    // Модель столбцов таблицы
+    private TableColumnModel columnModel;
+
     private final JButton sendButtonClient;
     private final JButton removeButtonClient;
     private final JButton updateButtonClient;
 
     private final JPanel sendCommandPanel;
 
-    private final JList<FileList> fileListServer;
-    private final DefaultListModel<FileList> fileListModelServer;
-    private final FileListCellRender fileListCellRenderServer;
-    private final JScrollPane scrollServer;
+//    private final JList<FileList> fileListServer;
+//    private final DefaultListModel<FileList> fileListModelServer;
+//    private final FileListCellRender fileListCellRenderServer;
+//    private final JScrollPane scrollServer;
     private final JButton downloadButtonServer;
     private final JButton removeButtonServer;
     private final JButton updateButtonServer;
@@ -37,27 +51,35 @@ public class BoxMainWindow extends JFrame {
 
         setLayout(new BorderLayout());
 
-        fileListClient = new JList<>();
-        fileListModelClient = new DefaultListModel<>();
-        fileListCellRenderClient = new FileListCellRender();
-        fileListClient.setModel(fileListModelClient);
-        fileListClient.setCellRenderer(fileListCellRenderClient);
+//        fileListClient = new JList<>();
+//        fileListModelClient = new DefaultListModel<>();
+//        fileListCellRenderClient = new FileListCellRender();
+//        fileListClient.setModel(fileListModelClient);
+//        fileListClient.setCellRenderer(fileListCellRenderClient);
 
-        scrollClient = new JScrollPane(fileListClient,
-                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        add(scrollClient, BorderLayout.WEST);
-        scrollClient.setPreferredSize(new Dimension(390, 720));
+//        scrollClient = new JScrollPane(fileListClient,
+//                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+//                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//        add(scrollClient, BorderLayout.WEST);
+//        scrollClient.setPreferredSize(new Dimension(390, 720));
+
+        // Создание таблицы на основании модели данных
+        tableClient = new JTable(array, columnsHeader);
+        // Получаем стандартную модель
+        columnModel = tableClient.getColumnModel();
+
+        tableClient.setPreferredSize(new Dimension(390, 668));
+        add(tableClient, BorderLayout.WEST);
 
         titleBox = new JPanel();
-        titleBox.setLayout(new BoxLayout(titleBox, BoxLayout.X_AXIS));
+        titleBox.setLayout(new FlowLayout());
         titleClient = new JLabel("Локальное хранилище", SwingConstants.CENTER);
-        titleClient.setPreferredSize(new Dimension(390, 40));
+        titleClient.setPreferredSize(new Dimension(386, 20));
         Font f = titleClient.getFont();
         titleClient.setFont(f.deriveFont(f.getStyle() | Font.BOLD));
         titleBox.add(titleClient);
         titleServer = new JLabel("Облачное хранилище", SwingConstants.CENTER);
-        titleServer.setPreferredSize(new Dimension(390, 40));
+        titleServer.setPreferredSize(new Dimension(386, 20));
         titleServer.setFont(f.deriveFont(f.getStyle() | Font.BOLD));
         titleBox.add(titleServer);
         add(titleBox, BorderLayout.NORTH);
@@ -89,17 +111,36 @@ public class BoxMainWindow extends JFrame {
             }
         });
 
-        fileListServer = new JList<>();
-        fileListModelServer = new DefaultListModel<>();
-        fileListCellRenderServer = new FileListCellRender();
-        fileListServer.setModel(fileListModelServer);
-        fileListServer.setCellRenderer(fileListCellRenderServer);
+//        fileListServer = new JList<>();
+//        fileListModelServer = new DefaultListModel<>();
+//        fileListCellRenderServer = new FileListCellRender();
+//        fileListServer.setModel(fileListModelServer);
+//        fileListServer.setCellRenderer(fileListCellRenderServer);
 
-        scrollServer = new JScrollPane(fileListServer,
-                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        add(scrollServer, BorderLayout.EAST);
-        scrollServer.setPreferredSize(new Dimension(390, 720));
+//        scrollServer = new JScrollPane(fileListServer,
+//                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+//                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//        add(scrollServer, BorderLayout.EAST);
+//        scrollServer.setPreferredSize(new Dimension(390, 720));
+        tableServer = new JTable(array, columnsHeader);
+        columnModel = tableServer.getColumnModel();
+/*
+        // Определение минимального и максимального размеров столбцов
+        Enumeration<TableColumn> e = columnModel.getColumns();
+        while ( e.hasMoreElements() ) {
+            TableColumn column = (TableColumn)e.nextElement();
+            column.setMinWidth(50);
+            column.setMaxWidth(200);
+        }
+*/
+        tableServer.setPreferredSize(new Dimension(390, 668));
+        add(tableServer, BorderLayout.EAST);
+        Box contents = new Box(BoxLayout.X_AXIS);
+        contents.add(new JScrollPane(tableClient));
+        contents.add(new JScrollPane(tableServer));
+//        setContentPane(contents);
+        getContentPane().add(contents);
+
 
         downloadButtonServer = new JButton("Скачать файл");
         downloadButtonServer.addActionListener(new ActionListener() {
