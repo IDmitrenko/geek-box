@@ -1,6 +1,7 @@
 package com.cloud.common.utils;
 
 import com.cloud.common.transfer.FileMessage;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.handler.codec.serialization.ObjectEncoderOutputStream;
 import javafx.application.Platform;
@@ -9,7 +10,6 @@ import javafx.scene.control.ProgressBar;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
-import java.nio.channels.Channel;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -85,6 +85,7 @@ public class FilePartitionWorker {
         }
     }
 
+/*
     public static void savePartToFile(String rootPath, FileMessage fileMessage, FileWritingFinally finalAction) {
         RandomAccessFile raf = null;
         FileChannel outChannel = null;
@@ -119,4 +120,5 @@ public class FilePartitionWorker {
             finalAction.action();
         }
     }
+*/
 }

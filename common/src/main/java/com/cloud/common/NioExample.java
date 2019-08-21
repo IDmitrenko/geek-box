@@ -13,10 +13,12 @@ public class NioExample
 {
   public static void main(String[] args)
   {
+    // Проверка существует ли файл?
     //    Path path = Paths.get(".//file//example.txt");
     //    boolean isExist = Files.exists(path);
     //    System.out.println(isExist);
 
+    // Создание директории
     //    Path path = Paths.get(".//file//newDir");
     //    try
     //    {
@@ -31,6 +33,7 @@ public class NioExample
     //      e.printStackTrace();
     //    }
 
+    // Копирование файла в другой
     //    Path sourcePath = Paths.get(".//file//example.txt");
     //    Path targetPath = Paths.get(".//file//exampleCopy.txt");
     //    try
@@ -42,7 +45,7 @@ public class NioExample
     //      e.printStackTrace();
     //    }
 
-
+    // Перемещение файла
     //    Path sourcePath = Paths.get(".//file//example.txt");
     //    Path targetPath = Paths.get(".//file//newDir//exampleCopy.txt");
     //    try
@@ -54,6 +57,7 @@ public class NioExample
     //      e.printStackTrace();
     //    }
 
+    // Удаление файла
     //    Path path = Paths.get(".//file//newDir//exampleCopy.txt");
     //    try
     //    {
@@ -64,12 +68,14 @@ public class NioExample
     //      e.printStackTrace();
     //    }
 
+//  Обход дерева
 /*
     Path rootPath = Paths.get(".//file");
     try
     {
       Files.walkFileTree(rootPath, new FileVisitor<Path>()
       {
+        // Перед посещением директории
         @Override
         public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException
         {
@@ -77,6 +83,7 @@ public class NioExample
           return FileVisitResult.CONTINUE;
         }
 
+        // Перед посещением фай1ла
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException
         {
@@ -84,6 +91,7 @@ public class NioExample
           return FileVisitResult.CONTINUE;
         }
 
+        // При сбое посещения файла
         @Override
         public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException
         {
@@ -91,6 +99,7 @@ public class NioExample
           return FileVisitResult.CONTINUE;
         }
 
+        // после посещения директории
         @Override
         public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException
         {
@@ -104,10 +113,11 @@ public class NioExample
       e.printStackTrace();
     }
 */
-/*
 
+    // поиск файла от корневой директории
+/*
     Path root = Paths.get(".//file");
-    String searchQuery = File.separator + "myFile3.txt";
+    String searchQuery = File.separator + "myFile2.txt";
 
     try
     {
@@ -134,8 +144,9 @@ public class NioExample
     }
 */
 
+    // Удаление всего от указанной директории
+    // удаляем сначала файлы, потом пустую директорию
     Path root = Paths.get(".//file");
-    String searchQuery = File.separator + "myFile3.txt";
 
     try
     {
