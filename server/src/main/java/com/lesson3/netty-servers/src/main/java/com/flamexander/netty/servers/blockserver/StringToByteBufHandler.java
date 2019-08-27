@@ -13,8 +13,11 @@ public class StringToByteBufHandler extends ChannelOutboundHandlerAdapter {
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
         String str = (String)msg;
         byte[] arr = str.getBytes();
+        // создаем буфер через специальный выделитель памяти
         ByteBuf buf = ctx.alloc().buffer(arr.length);
+        // записали в буфер
         buf.writeBytes(arr);
+        // вернули ByteBuf клиенту
         ctx.writeAndFlush(buf);
         buf.release();
     }

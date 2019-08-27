@@ -20,9 +20,11 @@ public class GatewayHandler extends ChannelInboundHandlerAdapter {
             sum += arr[i];
         }
         if (sum == 66) {
+            // прокидываем дальше по сети
             ctx.fireChannelRead(arr);
         } else {
             System.out.println("Сообщение сломано: " + Arrays.toString(arr));
+            // ответ клиенту
             ctx.writeAndFlush("Битое сообщение\n");
         }
     }

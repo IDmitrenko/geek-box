@@ -17,6 +17,7 @@ public class FirstHandler extends ChannelInboundHandlerAdapter {
         buf.readBytes(data);
         buf.release();
         System.out.println(Arrays.toString(data));
+        // кинули массив байт следующему блоку по конвееру
         ctx.fireChannelRead(data);
     }
 

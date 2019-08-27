@@ -17,6 +17,7 @@ public class Client {
             oeos.writeObject(textMessage);
             oeos.flush();
             odis = new ObjectDecoderInputStream(socket.getInputStream(), 100 * 1024 * 1024);
+            // посылаем объект в сторону сервера
             MyMessage msgFromServer = (MyMessage)odis.readObject();
             System.out.println("Answer from server: " + msgFromServer.getText());
         } catch (Exception e) {

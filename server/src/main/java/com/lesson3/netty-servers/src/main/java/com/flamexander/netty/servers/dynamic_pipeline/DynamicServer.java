@@ -56,7 +56,8 @@ public class DynamicServer implements Runnable {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new ObjectDecoder(1024 * 1024, null), new AuthHandler());
+                            ch.pipeline().addLast(new ObjectDecoder(1024 * 1024,
+                                    null), new AuthHandler());
                         }
                     })
                     .childOption(ChannelOption.SO_KEEPALIVE, true);

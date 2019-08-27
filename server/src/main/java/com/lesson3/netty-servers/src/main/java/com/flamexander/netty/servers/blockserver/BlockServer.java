@@ -23,7 +23,8 @@ public class BlockServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new StringToByteBufHandler(), new FirstHandler(), new SecondHandler(), new GatewayHandler(), new FinalHandler());
+                            ch.pipeline().addLast(new StringToByteBufHandler(), new FirstHandler(),
+                                    new SecondHandler(), new GatewayHandler(), new FinalHandler());
                         }
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)

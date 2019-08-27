@@ -16,8 +16,11 @@ public class MainHandler extends ChannelInboundHandlerAdapter {
         try {
             if (msg instanceof FileRequest) {
                 FileRequest fr = (FileRequest) msg;
+                // ищем файл на сервере
                 if (Files.exists(Paths.get("server_storage/" + fr.getFilename()))) {
+                    // создаем класс для передачи данных файла (в конструктор путь к этому файлу)
                     FileMessage fm = new FileMessage(Paths.get("server_storage/" + fr.getFilename()));
+                    // передача файла клиенту
                     ctx.writeAndFlush(fm);
                 }
             }

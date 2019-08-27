@@ -21,7 +21,9 @@ public class OrderServer {
             public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
                 System.out.println(this.name);
                 if (answer) {
+                    // ответ через канал
                     // ctx.channel().writeAndFlush("xxx");
+                    // ответ через контекст
                     ctx.writeAndFlush("xxx");
                 }
                 ctx.fireChannelRead(msg);

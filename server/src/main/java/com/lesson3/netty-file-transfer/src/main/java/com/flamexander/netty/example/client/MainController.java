@@ -34,7 +34,9 @@ public class MainController implements Initializable {
                     AbstractMessage am = Network.readObject();
                     if (am instanceof FileMessage) {
                         FileMessage fm = (FileMessage) am;
+                        // запись файла в client_storage (опция перезаписи)
                         Files.write(Paths.get("client_storage/" + fm.getFilename()), fm.getData(), StandardOpenOption.CREATE);
+                        // обновление списка локальных файлов
                         refreshLocalFilesList();
                     }
                 }
@@ -51,6 +53,7 @@ public class MainController implements Initializable {
 
     public void pressOnDownloadBtn(ActionEvent actionEvent) {
         if (tfFileName.getLength() > 0) {
+            // запрос серверу на скачивание введенного файла по имени
             Network.sendMsg(new FileRequest(tfFileName.getText()));
             tfFileName.clear();
         }

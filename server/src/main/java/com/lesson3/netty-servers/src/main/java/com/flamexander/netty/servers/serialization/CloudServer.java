@@ -25,6 +25,7 @@ public class CloudServer {
                             socketChannel.pipeline().addLast(
                                     new ObjectDecoder(1024 * 1024 * 100, ClassResolvers.cacheDisabled(null)),
                                     new ObjectEncoder(),
+                                    // ловим и кидаем в сеть объекты
                                     new CloudServerHandler()
                             );
                         }

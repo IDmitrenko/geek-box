@@ -8,7 +8,8 @@ public class DecodeServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         String str = (String)msg;
 //        System.out.println(str);
-//        ctx.fireChannelRead(str);
+        // прокидываем сообщение дальше по каналу
+        ctx.fireChannelRead(str);
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {

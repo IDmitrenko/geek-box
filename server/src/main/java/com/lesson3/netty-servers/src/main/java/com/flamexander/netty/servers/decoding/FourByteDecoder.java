@@ -9,12 +9,14 @@ import java.util.List;
 public class FourByteDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
+        // получение ByteBuf, нарезаем по 4-ре байта и формируем из них строку
         if (in.readableBytes() < 4) {
             return;
         }
         byte[] data = new byte[4];
         in.readBytes(data);
         String str = new String(data);
+        // добавляем строку в List
         out.add(str);
     }
 

@@ -35,12 +35,16 @@ public class ProtocolHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        // обработка собственного протокола
+        // накапливаем данные, анализируем их, и обрабатываем.
         ByteBuf buf = ((ByteBuf) msg);
 
         if (state == -1) {
             byte firstByte = buf.readByte();
+            // считываем первый байт
             type = DataType.getDataTypeFromByte(firstByte);
             state = 0;
+            // далее по логике указываем что надо следующие 4-ре байта
             reqLen = 4;
             System.out.println(type);
         }
@@ -49,6 +53,7 @@ public class ProtocolHandler extends ChannelInboundHandlerAdapter {
             if (buf.readableBytes() < reqLen) {
                 return;
             }
+            // считываем int из буфера
             reqLen = buf.readInt();
             state = 1;
             System.out.println("text size: " + reqLen);
@@ -58,6 +63,7 @@ public class ProtocolHandler extends ChannelInboundHandlerAdapter {
             if (buf.readableBytes() < reqLen) {
                 return;
             }
+            // ждем пока в буфере появится сообщение нужной длины
             byte[] data = new byte[reqLen];
             buf.readBytes(data);
             String str = new String(data);

@@ -19,6 +19,7 @@ public class CloudServerHandler extends ChannelInboundHandlerAdapter {
             System.out.println(msg.getClass());
             if (msg instanceof MyMessage) {
                 System.out.println("Client text message: " + ((MyMessage) msg).getText());
+                // отослали клиенту объект
                 ctx.writeAndFlush(new MyMessage("Hello Client!"));
             } else {
                 System.out.printf("Server received wrong object!");

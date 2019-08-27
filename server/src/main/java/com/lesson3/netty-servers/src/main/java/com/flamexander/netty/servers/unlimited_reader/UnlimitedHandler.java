@@ -16,7 +16,9 @@ public class UnlimitedHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        // получение длинного файла
         ByteBufAllocator allocator = ctx.alloc();
+        // внутренний буфер размером от 1 до 5 МБайт
         accumulator = allocator.directBuffer(1024 * 1024 * 1, 5 * 1024 * 1024);
     }
 
@@ -27,6 +29,7 @@ public class UnlimitedHandler extends ChannelInboundHandlerAdapter {
         input.release();
         try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream("1.txt", true))) {
             while (accumulator.readableBytes() > 0) {
+                // по мере заполнения буфера закидываем его данные в файл и освобождаем его для новой порции.
                 out.write(accumulator.readByte());
             }
             accumulator.clear();
